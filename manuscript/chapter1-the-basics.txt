@@ -1,82 +1,87 @@
-# The Basics
+# Cloud Native Microservices: How and Why
 
-Welcome to the Leanpub Browser book writing editor! This page is where you will be writing your book. This file is a working, real example of how to write a book chapter in plain text with Markdown formatting (which we'll explain briefly below).
+## Common approaches
 
-This is a paragraph. You just write.
+The field of software engineering is constantly evolving, and laws such as "Continuing Change", "Increasing Complexity", and "Declining Quality" are at the core of every software solution that addresses a real-world problem.
 
-Blank lines are used to separate paragraphs.
+The laws of software evolution were formulated in 1974 by [Lehman](https://en.wikipedia.org/wiki/Meir_Manny_Lehman). These laws describe a balance between the forces driving new developments and those that slow down progress. They have been revised and extended several times.
 
-To make *italic text* you surround it with single asterisks. To make **bold text** you surround it with double asterisks.
+Lehman's laws of software evolution include:
 
-Creating ebook files from this manuscript is really easy to do! Just click on the **Versions** tab in the menu at the top of the page, to go to the Preview page. You can then click the **Create Preview** button to preview your book.
+- The Law of **Continuing Change**: software satisfaction decreases over time unless it is continually adapted to meet new needs.
+- The Law of **Increasing Complexity**: as a large program is continuously changed, its complexity increases unless work is done to maintain or reduce it.
+- The Law of **Declining Quality**: the quality of a system appears to decline unless it is rigorously maintained and adapted to operational environment changes.
 
-*(Yes, these instructions are not just help text: they are also a book manuscript!)*
+Since software is often subject to change, Lehman aimed to identify the laws that govern such changes and ensure the software remains viable.
 
-Once the book has been generated, you can download it in PDF or EPUB format to see what it looks like.
+Software systems have continued to evolve, but these principles have always existed. As a result, developers have sought new approaches to manage the evolution of their systems while adhering to these principles.
 
-You can start new chapters by starting a line with a # sign and a space, and then typing your chapter title, just like you can see at the top of this page, where you see # The Basics on a line by itself.
+Some of the most common approaches are the Twelve-factor App, microservices, and Cloud Native Computing.
 
-You can create multiple chapters in one file, but we recommend one chapter per file. This way, your manuscript files will be easier to navigate. So, for example, this chapter is contained in the file named "The Basics" that you can see listed under the "Manuscript" menu to the left. "The Basics" is in bold in the menu, because it is the file that is currently selected.
+## The twelve-factor app
 
-(If you start typing in here, the Manuscript menu and all the other menus will go away, so that you can relax and focus on your writing! Just click outside of this text area, and all the menus will come back.)
+This methodology is a set of best practices for building web applications or software-as-a-service. It was developed by the team at [Heroku](https://www.heroku.com/), a cloud platform provider, and has since been widely adopted by the software development community. As you can understand from its name, this methodology highlights twelve factors:
 
-You can make a thematic break with three asterisks, like this:
+### I. Codebase
 
-* * *
+The twelve-factor app methodology states that an app should have only one codebase which is tracked in a version control system like Git or Mercurial. The codebase should be a single repository or a set of repositories that share a root commit. Multiple codebases indicate a distributed system, where each component should be treated as a separate app. Sharing code across multiple apps violates the twelve-factor principle, and shared code should be factored into libraries that can be included through the dependency manager.
 
-By the way, the above formatting is actually *all* you need to know to write a typical novel using Markdown formatting! To write a technical book, however, you'll need to know a bit more Markdown, and learn a bit about Markua.
+An app can have many deploys, which are running instances of the app, including production, staging, and local development environments. Although different versions may be active in each deploy, the codebase remains the same across all deploys. Developers should always have a copy of the same codebase in their local development environment.
 
-## Markdown and Markua
+Read more: https://12factor.net/codebase
 
-The dialect of Markdown used at Leanpub is called Markua.
+### II. Dependencies
 
-Markdown is great, but it doesn't have support for certain things that many books need. These include index entries, crosslinks, endnotes, external code samples, etc. So, we've added these to Markdown, by extending Markdown in an open specification called Markua.
+The 2nd factor emphasizes the need to explicitly declare and isolate dependencies.
 
-The Markua spec is [here](http://markua.com).
+A twelve-factor app should declare all dependencies via a dependency declaration manifest and use a dependency isolation tool during execution to ensure that no implicit dependencies "leak in" from the surrounding system.
 
-However, that spec is really long, and there are a few advanced things in the spec which aren't fully supported in Leanpub yet.
+This principle applies uniformly to both production and development environments. 
 
-So, if you want to learn how to get started writing in Markua on Leanpub, see the next chapter, **Writing in Markua**, by clicking the Writing in Markua chapter under the Manuscript menu to the left.
+Dependency declaration and isolation must always be used together to satisfy the twelve-factor. Explicit dependency declaration simplifies the setup for new developers and ensures that the app runs consistently across different environments. 
 
-This chapter will show you everything you need to know about how to use all the important parts of Markdown and Markua to create a technical book, including how to use...
+Twelve-factor apps also do not rely on the implicit existence of any system tools and should vendor any necessary system tools into the app to ensure compatibility.
 
-   * lists
-   * images
-   * code samples
-   * tables
-   * math
-   * resource attributes
-   * document settings
-   * asides and blurbs
-   * index entries
-   * crosslinks
+Read more: https://12factor.net/dependencies
 
-Seriously, unless you already know everything about Markua, you should strongly consider looking at that chapter. It may save you a bunch of time!
+### III. Config
 
-## Generate a preview version of your book
+Storing configurations in the environment rather than in the code is the third factor. 
 
-You should probably generate a preview of this version of your book next, to save a copy of these helpful instructions. (The **Writing in Markua** chapter can come in handy!)
+An app's configuration should be stored in environment variables, which are easy to change between deployments, language- and OS-agnostic, and not likely to be accidentally checked into the code repository. 
 
-Click on the Versions tab above to go to the Preview page, and then click Create Preview to do that.
+Configurations should not be stored as constants in the code since config varies substantially across deploys, unlike the code. Internal application config, such as how code modules are connected, is best done in the code. 
 
-## Either read a tutorial, or just go for it!
+Grouping of configurations into named environments is discouraged, and instead, env vars should be granular controls that are independently managed for each deployment. 
 
-At this point, there are two good ways to proceed. You can either read a tutorial and follow along, or you can just go for it!
+This model scales up smoothly as the app expands into more deployments over its lifetime.
 
-(If you're feeling adventurous, just go for it. The tutorial is linked on the Help > Getting Started page, so you can always read it later...)
+Read more: https://12factor.net/config
 
-### Read the tutorial...
+### IV. Backing services
 
-If this is your first time writing a Leanpub book in our Browser writing mode, after you've read the Writing in Markua we recommend you read our full tutorial [here](https://bit.ly/3lAaI3I). That tutorial will guide you through every step, including previewing versions for your review, and even publishing the first version of your book when you're ready!
+The 4th factor of the 12 Factor App methodology highlights treating backing services as attached resources, accessed via a URL or other locator/credentials stored in the config.
 
-### ...or just go for it!
+Backing services include any service the app consumes over the network as part of its normal operation, such as data stores (e.g MySQL), messaging/queueing systems (e.g AWS SQS), and caching systems (e.g. Redis). 
 
-Once you're ready to start writing your book, simply select all the text in this file, delete it, and then start writing!
+The code for a twelve-factor app treats local and third-party services the same way. When swapping out a local resource with a third-party resource, only the resource handle in the configuration needs to be changed. Each separate backing service is treated as an attached resource that can be easily attached to or detached from deployments without any need to change the app's code.
 
-Start with # Your Chapter Name and then a blank line, and then write your first paragraph.
+![](resources/images/12factors01.png)
 
-You can create new files by clicking the + button in the menu on the left, and you can delete the other chapter files by mousing over them, clicking the settings gear icon, and clicking the red Delete File button.
+*Image credit: [https://12factor.net/](https://12factor.net/)*
 
-## Thanks for being a Leanpub author!
+Read more: https://12factor.net/backing-services
 
-On behalf of everyone at Leanpub, we really hope that you enjoy the experience of writing and publishing in-progress books on Leanpub. We are a bootstrapped startup which is entirely supported by our authors, and we're really grateful that you have chosen to write your book using Leanpub...
+### V. Build, release, run
+
+The 5th factor stresses on the importance of strictly separating the build, release, and run stages.
+
+The build stage transforms the code repo into an executable bundle known as a build, the release stage combines the build with the deploy's current config, and the run stage launches the app in the execution environment. 
+
+Code cannot be altered at runtime, and each release should have a unique release ID that cannot be modified once it is created. Builds are initiated by the app's developers, while runtime execution can occur automatically. Therefore, the run stage should be kept as simple as possible to avoid breaking the app when developers are not present.
+
+![](resources/images/12factors2.png)
+
+*Image credit: https://12factor.net/*
+
+Read more: https://12factor.net/build-release-run

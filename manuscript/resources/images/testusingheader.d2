@@ -1,0 +1,74 @@
+app: "" {
+  state0: "version N" {
+    blue01
+    blue02
+    blue03
+  }
+  state1: "Version N+1" {
+    green31
+    green32
+    green33
+  }
+}
+
+ig: Istio Ingress
+ig -> router: Traffic
+
+router
+
+router -> app.state0: ALl traffic
+router -> app.state1: Matched requests
+
+title: Istio Canary deployment {
+  shape: text
+  near: bottom-center
+  style: {
+    font-size: 44
+    italic: true
+  }
+}
+
+classes: {
+  blue: {
+    label: ""
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: true
+      fill: "#4f4fff"
+    }
+  }
+  green: {
+    label: ""
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: true
+      fill: "#84f4cd"
+    }
+  }
+  router: {
+    label: "VirtualService"
+    shape: rectangle
+    width: 350
+    height: 200
+    style: {
+      fill: "#f4a261"
+      border-radius: 10
+      3d: false
+    }
+  }
+}
+
+app.state0.blue01.class: blue
+app.state0.blue02.class: blue
+app.state0.blue03.class: blue
+
+app.state1.green31.class: green
+app.state1.green32.class: green
+app.state1.green33.class: green
+
+router.class: router
+

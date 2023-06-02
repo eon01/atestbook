@@ -1,0 +1,73 @@
+classes: {
+    blue: {
+      label: ""
+      shape: rectangle
+      width: 80
+      height: 200
+      style: {
+        shadow: true
+        fill: "#4f4fff"
+      }
+    }
+    green: {
+      label: ""
+      shape: rectangle
+      width: 80
+      height: 200
+      style: {
+        shadow: true
+        fill: "#84f4cd"
+      }
+    }
+  }
+  
+  app: "" {
+    state0: "state0" {
+      blue01
+      blue02
+      blue03
+    }
+    state1: "state1" {
+      blue11
+      blue12
+      green11
+    }
+    state2: "state2" {
+      blue22
+      green21
+      green22
+    }
+    state3: "state3" {
+      green31
+      green32
+      green33
+    }
+  }
+  
+  app.state0.blue01.class: blue
+  app.state0.blue02.class: blue
+  app.state0.blue03.class: blue
+  
+  app.state1.blue11.class: blue
+  app.state1.blue12.class: blue
+  app.state1.green11.class: green
+  
+  app.state2.blue22.class: blue
+  app.state2.green21.class: green
+  app.state2.green22.class: green
+  
+  app.state3.green31.class: green
+  app.state3.green32.class: green
+  app.state3.green33.class: green
+  
+  app.state0 -> app.state1 -> app.state2 -> app.state3
+  
+  title: Canary deployment: Gradual release to a subset of users for testing {
+    shape: text
+    near: bottom-center
+    style: {
+      font-size: 24
+      italic: true
+    }
+  }
+  

@@ -1,0 +1,48 @@
+classes: {
+    tainted: {
+      label: "Tainted Node"
+      shape: rectangle
+      width: 80
+      height: 200
+      style: {
+        shadow: true
+        fill: "#f72714"
+      }
+    }
+    untainted: {
+      label: "Node"
+      shape: rectangle
+      width: 80
+      height: 200
+      style: {
+        shadow: true
+        fill: green
+      }
+    }
+  }
+  
+  cluster: Cluster {
+    node1: Node A {
+      nopod: DaemonSet Pod
+    }
+    node2: Node B {
+      pod1: DaemonSet Pod
+    }
+    node3: Node C {
+      pod2: DaemonSet Pod
+    }
+  }
+  
+  cluster.node1.class: tainted
+  cluster.node2.class: untainted
+  cluster.node3.class: untainted
+  
+  title: The tainted node will not repel the DaemonSet Pod when it has the right Toleration {
+    shape: text
+    near: bottom-center
+    style: {
+      font-size: 24
+      italic: true
+    }
+  }
+  

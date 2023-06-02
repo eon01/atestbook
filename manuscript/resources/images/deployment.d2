@@ -1,0 +1,29 @@
+Node: {
+  Pod 1: {
+    Container: stateless-flask container
+  }
+  Pod 2: {
+    Container: stateless-flask container
+  }
+  Pod 3: {
+    Container: stateless-flask container
+  }
+}
+
+User -> Kubernetes API Server: uses
+Kubernetes API Server -> Deployment: manages
+
+Deployment -> ReplicaSet
+
+ReplicaSet -> Node.Pod 1
+ReplicaSet -> Node.Pod 2
+ReplicaSet -> Node.Pod 3
+
+title: Kubernetes Deployment {
+  shape: text
+  near: bottom-center
+  style: {
+    font-size: 24
+    italic: true
+  }
+}

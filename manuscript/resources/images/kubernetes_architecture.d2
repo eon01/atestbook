@@ -1,0 +1,32 @@
+cluster: {
+  control plane: {
+    api
+    sheduler
+    controller
+    etcd
+  }
+  node pool: {
+    node 1: {
+      kubelet
+      proxy
+    }
+    node 2
+    node n
+  }
+}
+
+cluster.control plane.api <-> cluster.control plane.sheduler
+cluster.control plane.api <-> cluster.control plane.controller
+cluster.control plane.api <-> cluster.control plane.etcd
+
+cluster.node pool.node 1.kubelet <-> cluster.control plane.api
+cluster.node pool.node 1.proxy <-> cluster.control plane.api
+
+title: K8s Architecture {
+  shape: text
+  near: bottom-center
+  style: {
+    font-size: 44
+    italic: true
+  }
+}

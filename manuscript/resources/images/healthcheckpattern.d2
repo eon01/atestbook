@@ -1,0 +1,130 @@
+classes: {
+    g: {
+      label: "Gateway"
+      shape: circle
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        # fill: none
+        font-color: black
+        font-size: 40
+        stroke: cornflowerblue
+        stroke-width: 7
+      }
+    }
+    m1: {
+      label: "Healthy"
+      shape: rectangle
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        fill: green
+        font-color: white
+        font-size: 40
+      }
+    }
+    m2: {
+      label: "Unhealthy"
+      shape: square
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        fill: red
+        font-color: white
+        font-size: 40
+      }
+    }
+    db: {
+      label: "Datastore/Memory"
+      shape: square
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        # fill: "#0facf3"
+        # font-color: white
+        font-size: 20
+      }
+    }
+    ja1: {
+      label: "Jaeger Collector"
+      shape: square
+      # near: 
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        fill: "#ff6a07"
+        font-color: white
+        font-size: 40
+      }
+    }
+    ja2: {
+      label: "Jaeger Query"
+      shape: square
+      # near: 
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        fill: "#ff6a07"
+        font-color: white
+        font-size: 40
+      }
+    }
+    ja3: {
+      label: "Jaeger UI"
+      shape: square
+      # near: 
+      width: 300
+      height: 300
+      style: {
+        double-border: true
+        shadow: true
+        fill: "#ff6a07"
+        font-color: white
+        font-size: 40
+      }
+    }
+  }
+  
+  g.class: g
+  
+  m1.class: m1
+  m2.class: m2
+  
+  g -> m1: {
+    style: {
+      opacity: 1
+      stroke: green
+      stroke-width: 7
+    }
+  }
+  g -> m2: X {
+    style: {
+      opacity: 1
+      font-size: 90
+      font-color: red
+      stroke: red
+      stroke-width: 1
+    }
+  }
+  
+  title1: The health check pattern {
+    shape: text
+    near: bottom-center
+    style: {
+      font-size: 43
+      italic: true
+    }
+  }
+  

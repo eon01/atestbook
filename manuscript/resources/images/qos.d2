@@ -1,0 +1,99 @@
+classes: {
+  no_request: {
+    label: "Requests"
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: false
+      stroke-dash: 3
+    }
+  }
+  no_limit: {
+    label: "Limits"
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: false
+      stroke-dash: 3
+    }
+  }
+  request50: {
+    label: "Requests"
+    shape: rectangle
+    width: 80
+    height: 100
+    style: {
+      shadow: false
+      fill: yellow
+    }
+  }
+  request100: {
+    label: "Requests"
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: false
+      fill: yellow
+    }
+  }
+  limit100: {
+    label: "Limits"
+    shape: rectangle
+    width: 80
+    height: 200
+    style: {
+      shadow: false
+      fill: "#99AEF4"
+    }
+  }
+}
+
+BestEffort: {
+  x1.class: no_request
+  y1.class: no_limit
+}
+
+Burstable: {
+  x2.class: request50
+  y2.class: limit100
+}
+
+Guranteed: {
+  x3.class: request100
+  y3.class: limit100
+}
+
+BestEffort -- BestEffortExplanation
+Burstable -- BurstableExplanation
+Guranteed -- GuranteedExplanation
+
+GuranteedExplanation: "" {
+  GuranteedExplanation: |md
+    requests and limits are equal
+  |
+}
+
+BurstableExplanation: "" {
+  BurstableExplanation: |md
+    requests and limits are not equal
+  |
+}
+
+BestEffortExplanation: "" {
+  BestEffortExplanation: |md
+    requests and limits are not set
+  |
+}
+
+title1: Kubernetes QoS Classes {
+  shape: text
+  near: bottom-center
+  style: {
+    font-size: 43
+    italic: true
+  }
+}
+
