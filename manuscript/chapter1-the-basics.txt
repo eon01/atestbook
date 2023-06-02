@@ -4,84 +4,9 @@
 
 The field of software engineering is constantly evolving, and laws such as "Continuing Change", "Increasing Complexity", and "Declining Quality" are at the core of every software solution that addresses a real-world problem.
 
-The laws of software evolution were formulated in 1974 by [Lehman](https://en.wikipedia.org/wiki/Meir_Manny_Lehman). These laws describe a balance between the forces driving new developments and those that slow down progress. They have been revised and extended several times.
-
-Lehman's laws of software evolution include:
-
-- The Law of **Continuing Change**: software satisfaction decreases over time unless it is continually adapted to meet new needs.
-- The Law of **Increasing Complexity**: as a large program is continuously changed, its complexity increases unless work is done to maintain or reduce it.
-- The Law of **Declining Quality**: the quality of a system appears to decline unless it is rigorously maintained and adapted to operational environment changes.
-
-Since software is often subject to change, Lehman aimed to identify the laws that govern such changes and ensure the software remains viable.
-
-Software systems have continued to evolve, but these principles have always existed. As a result, developers have sought new approaches to manage the evolution of their systems while adhering to these principles.
-
-Some of the most common approaches are the Twelve-factor App, microservices, and Cloud Native Computing.
-
-## The twelve-factor app
-
-This methodology is a set of best practices for building web applications or software-as-a-service. It was developed by the team at [Heroku](https://www.heroku.com/), a cloud platform provider, and has since been widely adopted by the software development community. As you can understand from its name, this methodology highlights twelve factors:
-
-### I. Codebase
-
-The twelve-factor app methodology states that an app should have only one codebase which is tracked in a version control system like Git or Mercurial. The codebase should be a single repository or a set of repositories that share a root commit. Multiple codebases indicate a distributed system, where each component should be treated as a separate app. Sharing code across multiple apps violates the twelve-factor principle, and shared code should be factored into libraries that can be included through the dependency manager.
-
-An app can have many deploys, which are running instances of the app, including production, staging, and local development environments. Although different versions may be active in each deploy, the codebase remains the same across all deploys. Developers should always have a copy of the same codebase in their local development environment.
-
-Read more: https://12factor.net/codebase
-
-### II. Dependencies
-
-The 2nd factor emphasizes the need to explicitly declare and isolate dependencies.
-
-A twelve-factor app should declare all dependencies via a dependency declaration manifest and use a dependency isolation tool during execution to ensure that no implicit dependencies "leak in" from the surrounding system.
-
-This principle applies uniformly to both production and development environments. 
-
-Dependency declaration and isolation must always be used together to satisfy the twelve-factor. Explicit dependency declaration simplifies the setup for new developers and ensures that the app runs consistently across different environments. 
-
-Twelve-factor apps also do not rely on the implicit existence of any system tools and should vendor any necessary system tools into the app to ensure compatibility.
-
-Read more: https://12factor.net/dependencies
-
-### III. Config
-
-Storing configurations in the environment rather than in the code is the third factor. 
-
-An app's configuration should be stored in environment variables, which are easy to change between deployments, language- and OS-agnostic, and not likely to be accidentally checked into the code repository. 
-
-Configurations should not be stored as constants in the code since config varies substantially across deploys, unlike the code. Internal application config, such as how code modules are connected, is best done in the code. 
-
-Grouping of configurations into named environments is discouraged, and instead, env vars should be granular controls that are independently managed for each deployment. 
-
-This model scales up smoothly as the app expands into more deployments over its lifetime.
-
-Read more: https://12factor.net/config
-
-### IV. Backing services
-
-The 4th factor of the 12 Factor App methodology highlights treating backing services as attached resources, accessed via a URL or other locator/credentials stored in the config.
-
-Backing services include any service the app consumes over the network as part of its normal operation, such as data stores (e.g MySQL), messaging/queueing systems (e.g AWS SQS), and caching systems (e.g. Redis). 
-
-The code for a twelve-factor app treats local and third-party services the same way. When swapping out a local resource with a third-party resource, only the resource handle in the configuration needs to be changed. Each separate backing service is treated as an attached resource that can be easily attached to or detached from deployments without any need to change the app's code.
 
 ![](resources/images/12factors01.png)
 
 *Image credit: [https://12factor.net/](https://12factor.net/)*
 
 Read more: https://12factor.net/backing-services
-
-### V. Build, release, run
-
-The 5th factor stresses on the importance of strictly separating the build, release, and run stages.
-
-The build stage transforms the code repo into an executable bundle known as a build, the release stage combines the build with the deploy's current config, and the run stage launches the app in the execution environment. 
-
-Code cannot be altered at runtime, and each release should have a unique release ID that cannot be modified once it is created. Builds are initiated by the app's developers, while runtime execution can occur automatically. Therefore, the run stage should be kept as simple as possible to avoid breaking the app when developers are not present.
-
-![](resources/images/12factors2.png)
-
-*Image credit: https://12factor.net/*
-
-Read more: https://12factor.net/build-release-run
